@@ -11,7 +11,6 @@ const Carousel = () => {
     {image: "/images/pic4.jpg"}
   ]
   const [ slideImages, setSlideImages ] = useState(images);
-  var dummy = 0;
 
   const trackContainer = useRef();
   const dotContainer = useRef();
@@ -21,7 +20,7 @@ const Carousel = () => {
   useEffect(() => {
       prepareSlider();
       setTimeout(() => {
-        autoSlide();
+        // autoSlide();
       }, 5000)
   }, [])
 
@@ -75,7 +74,6 @@ const Carousel = () => {
   }
 
   const nextSlide = () => {
-    console.log(prepareSlider().slides);
     const currentSlide = document.querySelector('.currentSlide');
     const nextSlide = currentSlide.nextElementSibling;
     const slides = prepareSlider().slides
