@@ -104,11 +104,12 @@ header {
     width: 100%;
     font-size: 1.4rem;
     position: fixed;
-    top: -10px;
+    top: -20px;
     left: -100%;
     bottom: 0;
     transition: left 350ms 100ms;
     display: flex;
+    z-index: 1;
     div {
       background: gray;
       width: 100%;

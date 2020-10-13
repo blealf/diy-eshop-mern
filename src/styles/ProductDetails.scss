@@ -9,19 +9,22 @@
   .pDetailsBreadCrumbs{
     font-size: 0.9rem;
     padding: 8px 1px 20px 0px;
-    border-bottom: 1px solid var(--main-dark);
+    // border-bottom: 1px solid var(--main-dark);
   }
   .pDetailsMetaData {
     font-size: 0.8rem;
     margin-top: 15px;
     display: grid;
     grid-template-columns: 1fr;
+    justify-items: start;
+    max-width: 700px;
     .pDetailsTitle {
       text-transform: upperCase;
       font-size: 25px;
     }
     .pModelInfo {
       display: flex;
+      // border: 1px solid red;
       h4 {
         margin-right: 1rem;
         line-height: 1px;
@@ -32,26 +35,16 @@
     }
     .pDetailsPoints{
       display: grid;
-      grid-template-columns: 108px 1fr;
-      justify-content: center;
+      grid-template-columns: 108px 140px;
+      justify-content: start;
       align-items: center;
       grid-gap: 3px;
       margin: 0;
       div {
-        margin-right: 10px;
-        // border: 1px solid red;
         a{
-          color: blue;
+          color: var(--button);
           text-decoration: none;
         }
-      }
-      div:last-of-type {
-        grid-column: 1 / 3;
-      }
-      .starRating {
-        color: var(--main-dark);
-        color: #FECF0B;
-        font-size: 18px;
       }
     }
   }
@@ -59,37 +52,138 @@
 
 .pDetailsMain {
   width: 100%;
-  // height: 500px;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 3px;
-  // background-color: red;
-  .pDetailsPicture, .pDetailsHighlights {
+  grid-gap: 10px;
+  border-top: 1px solid var(--main-dark);
+  padding-top: 5px;
+  .pDetailsPicture {
     height: 500px;
   }
   .pDetailsPicture {
-    // background: blue;
+    margin-top: 20px;
+    width: 100%;
   }
-  .pDetailsHighlights {
-    background: yellow;
+  .pDetailsPurchase {
+    max-width: 500px;
+    padding: 10px;
+    font-size: 13px;
+    .saleSave{
+      color: var(--price);
+      font-weight: bolder;
+    }
+    .price{
+      font-size: 35px;
+      color: var(--price);
+      font-weight: bolder;
+      span{
+        position: relative;
+        font-size: 13px;
+        top: -15px;
+      }
+    }
+    .cartAndWish{
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      
+      a{
+        margin-top:10px;
+        color: var(--alt-color);
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: bolder;
+        div {
+          width: 100%;
+          background: var(--button);
+          text-align: center;
+          padding: 18px;
+        }
+      }
+      a:last-of-type {
+        div {
+          background: var(--main-dark);
+        }
+      }
+    }
+    .storeInfo {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      padding-bottom: 40px;
+      a { 
+        text-decoration: none;
+        color: var(--button);
+      }
+      h3 {
+        margin: 0;
+        padding: 5px;
+        span {
+          font-weight: lighter;
+        }
+      }
+      p {
+        margin: 0;
+        padding: 5px;
+      }
+    }
   }
 }
 
 .pDetailsDescription {
+  font-size: 1.1rem;
+  padding: 10px;
+  // background: #EFF5F3;
+  
   .pDetailsOverview {
-
+    max-width: 900px;
+    p{
+      // max-width: 900px;
+    }
   }
   .pDetailsInfo {
-
+    max-width: 900px;
+    li {
+      margin-top: 10px;
+    }
   }
 }
 
 .pDetailsReviews {
+  max-width: 900px;
+  font-size: 1.1rem;
+}
 
+.returnPolicy{
+  max-width: 900px;
+  font-size: 1.1rem;
 }
 
 @media only screen and (min-width: 700px) {
-    .pDetailsMain {
-      grid-template-columns: 1fr 1fr;
+  .pDetailsMetaData {
+    grid-template-columns: repeat(autofit, 1fr);
+    // grid-template-columns: 360px, 340px;
+    align-items: baseline;
+    .pDetailsTitle{
+      grid-column: 1 / 3;
     }
+    .pModelInfo {
+      grid-column: 2 / 3;
+      grid-row: 2;
+    }
+    .pDetailsPoints{
+      grid-column: 1 / 2;
+      grid-row: 2;
+      max-width: 360px;
+      grid-template-columns: 108px 140px 108px;
+      div:last-of-type {
+        grid-column: 3 / 4;
+        // border: 1px solid red;
+
+      }
+    }
+  }
+  .pDetailsMain {
+    grid-template-columns: 2fr 1fr;
+    
+  }
 }

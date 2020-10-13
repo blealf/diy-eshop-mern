@@ -24,8 +24,7 @@ const Products = () => {
           review={item.review}/>
       )) : null
     }
-      <div className="productReviews"></div>
-      <div className="returnPolicy"></div>
+      
     </div>
   )
 }

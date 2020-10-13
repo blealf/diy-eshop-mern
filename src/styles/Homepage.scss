@@ -1,0 +1,109 @@
+.homepage {
+  padding: 10px;
+}
+
+.assurance{
+  max-width: 1300px;
+  // border: 1px solid red;
+  color: var(--button);
+  margin: 0 auto;
+  margin-top: 80px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+  .assuranceItem{
+    // border: 1px solid red;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .assuranceIcon{
+      margin: 0;
+      font-size: 50px;
+      margin-right: 20px;
+    }
+    .assuranceText{
+      h2{
+        font-size: 1.9rem;
+        font-weight: bolder;
+        margin-bottom: 0;
+      }
+      p{
+        font-size: 1.2rem;
+        font-weight: bolder;
+        margin-top: 10px;
+        color: gray;
+      }
+    }
+  }
+}
+
+.homepageDeals {
+  max-width: 1500px;
+  margin: 0 auto;
+  margin-top: 80px;
+  .dealsTitle {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .dealWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    grid-gap: 30px;
+    a {
+      color: var(--main-dark);
+      text-decoration: none;
+    }
+    .dealItem {
+      height: 350px;
+      width: 100%;
+      // border: 1px solid red;
+      .dealImage{
+        width: 100%;
+        height: 200px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      .dealInfo{
+        margin-top: 20px;
+        .dealTitle {
+          font-size: 18px;
+        }
+        .dealReview {
+          span:last-of-type {
+            font-size: 15px;
+          }
+        }
+        .dealPrice {
+          h2 {
+            font-size: 20px;
+            margin-top: 5px;
+            color: var(--price);
+            span {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 700px){
+  .assurance{
+    flex-direction: row;
+  }
+  .homepageDeals{
+    .dealWrapper {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

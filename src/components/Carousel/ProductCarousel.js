@@ -10,6 +10,7 @@ const ProductCarousel = () => {
   const slideNav = useRef();
   const prevButton = useRef();
   const nextButton = useRef();
+  const navWrapper = useRef();
 
   useEffect(() => {
     prepareItemSlider();
@@ -22,6 +23,7 @@ const ProductCarousel = () => {
     slides.forEach((slide, index) => {
       slide.style.left = slideWidth * index + 'px';
     })
+    
 
     const slideNavParent = slideNav.current;
     const slideNavs = Array.from(slideNavParent.children);
@@ -29,19 +31,18 @@ const ProductCarousel = () => {
     slideNavs.forEach((nav, index) => {
       nav.style.left = (slideNavWidth * index) + 'px';
     })
+    const slideNavParentWrapper = navWrapper.current;
     return{
       slideParent,
       slides,
       slideWidth,
       slideNavParent,
       slideNavs,
-      slideNavWidth
+      slideNavWidth,
+      slideNavParentWrapper
     }
   } 
 
-  const moveToTarget = (currentThumb, targetThumb) => {
-
-  }
   const moveToTargetSlide = (currentItem, targetItem) => {
     const slideParent = prepareItemSlider().slideParent;
     const amountToMove = targetItem.style.left;
@@ -50,41 +51,39 @@ const ProductCarousel = () => {
     targetItem.classList.add('currentItem');
   }
 
-  const nextSlide = () => {
+  const nextSlideSet = () => {
     //if number of navElement is less than 4 don't move
     const navAmount = prepareItemSlider().slideNavs.length;
     if (navAmount < 4) return
 
     //if more than four loop by number/four i.e i > num/4
     const slideNavWidth = prepareItemSlider().slideNavWidth;
-    const currentNav = document.querySelector('.currentNavItem');
-    const targetNav = currentNav.nextElementSibling;
-    
-    if(targetNav !== null){
-      const amountToMove = targetNav.style.left;
-    const slideNavParent = prepareItemSlider().slideNavParent;
-    slideNavParent.style.transform = 'translateX(-' + amountToMove + ')';
-      currentNav.classList.remove('currentNavItem');
-      targetNav.classList.add('currentNavItem');
+    const navWrapperWidth = prepareItemSlider().slideNavParentWrapper.getBoundingClientRect().width;
+    const lastSlideLeft = parseInt(prepareItemSlider().slideNavs[navAmount-1].style.left)
+    if((slideNavWidth) <  lastSlideLeft){
+        const slideNavParent = prepareItemSlider().slideNavParent;
+        const currentTransform = parseInt(slideNavParent.style.transform.slice(12))
+        const amountToMove =  currentTransform > 0 ?  currentTransform + navWrapperWidth : navWrapperWidth;
+      if(amountToMove < lastSlideLeft){
+        slideNavParent.style.transform = 'translateX(-' + amountToMove + 'px)';
+      }
     }
   }
 
-  const prevSlide = () => {
+  const prevSlideSet = () => {
     //if number of navElement is less than 4 don't move
     const navAmount = prepareItemSlider().slideNavs.length;
     if (navAmount < 4) return
 
     //if more than four loop by number/four i.e i > num/4
-    const slideNavWidth = prepareItemSlider().slideNavWidth;
-    const currentNav = document.querySelector('.currentNavItem');
-    const targetNav = currentNav.previousElementSibling;
-    
-    if(targetNav !== null){
-      const amountToMove = targetNav.style.left;
-      const slideNavParent = prepareItemSlider().slideNavParent;
-      slideNavParent.style.transform = 'translateX(-' + amountToMove + ')';
-      currentNav.classList.remove('currentNavItem');
-      targetNav.classList.add('currentNavItem');
+    const navWrapperWidth = prepareItemSlider().slideNavParentWrapper.getBoundingClientRect().width;
+    const slideNavParent = prepareItemSlider().slideNavParent;
+    const currentTransform = parseInt(slideNavParent.style.transform.slice(12))
+    const amountToMove =  currentTransform > 0 ?  currentTransform - navWrapperWidth : 0;
+    console.log(currentTransform)
+    if(currentTransform > 0){
+      console.log(amountToMove);
+      slideNavParent.style.transform = 'translateX(' + (-amountToMove) + 'px)';
     }
   }
 
@@ -100,8 +99,6 @@ const ProductCarousel = () => {
     prevSlideNav.classList.remove('currentNavItem');
     currentSlideNav.classList.add('currentNavItem');
   }
-
-
  
   return (
     <div className="productCarousel">
@@ -129,10 +126,10 @@ const ProductCarousel = () => {
         </div>
       </div>
       <div className="productCarouselNav">
-        <span className="pLeft" ref={prevButton} onClick={prevSlide}>
+        <span className="pLeft" ref={prevButton} onClick={prevSlideSet}>
           <FaChevronLeft />
         </span>
-        <div className="imageNavWrapper">
+        <div className="imageNavWrapper" ref={navWrapper}>
           <div className="imageNav" ref={slideNav}>
             <button 
               className="imageNavItem currentNavItem"
@@ -161,7 +158,7 @@ const ProductCarousel = () => {
             <button onClick={goToSlide}></button>
           </div>
         </div>
-        <span className="pRight" ref={nextButton} onClick={nextSlide}>
+        <span className="pRight" ref={nextButton} onClick={nextSlideSet}>
           <FaChevronRight />
         </span>
       </div>

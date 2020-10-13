@@ -22,9 +22,12 @@ const StarRating = ({ rating }) => {
     return starRating;
   }
   return (
-    <div className="starRating">
+    <div className="starRating" style={{ 
+      color: '#FECF0B',
+      fontSize: '18px',
+      }}>
       {
-        giveStarRating().map(star => star)
+        rating ? giveStarRating().map(star => star) : null
       }
     </div>
   )
