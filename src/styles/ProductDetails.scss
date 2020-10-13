@@ -32,10 +32,10 @@
     }
     .pDetailsPoints{
       display: grid;
-      grid-template-columns: 95px 1fr;
+      grid-template-columns: 108px 1fr;
       justify-content: center;
       align-items: center;
-      grid-gap: 5px;
+      grid-gap: 3px;
       margin: 0;
       div {
         margin-right: 10px;
@@ -49,18 +49,29 @@
         grid-column: 1 / 3;
       }
       .starRating {
-        color: var(--main-dark)
+        color: var(--main-dark);
+        color: #FECF0B;
+        font-size: 18px;
       }
     }
   }
 }
 
 .pDetailsMain {
+  width: 100%;
+  // height: 500px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 3px;
+  // background-color: red;
+  .pDetailsPicture, .pDetailsHighlights {
+    height: 500px;
+  }
   .pDetailsPicture {
-
+    // background: blue;
   }
   .pDetailsHighlights {
-
+    background: yellow;
   }
 }
 
@@ -75,4 +86,10 @@
 
 .pDetailsReviews {
 
+}
+
+@media only screen and (min-width: 700px) {
+    .pDetailsMain {
+      grid-template-columns: 1fr 1fr;
+    }
 }

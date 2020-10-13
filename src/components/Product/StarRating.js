@@ -2,11 +2,12 @@ import React from 'react';
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 
 const StarRating = ({ rating }) => {
-  const testRating = 4.5;
+  // const testRating = 4.5;
 
   const giveStarRating = () => {
-    // if (!rating) return
-    const expandRating = testRating * 2;
+    if (!rating) return
+    const expandRating = Math.round(rating * 2);
+    // console.log(expandRating);
     const starRating =[]
     for(let i = 1; i < 11; i++){
       if(i%2 === 0 && expandRating >= i){

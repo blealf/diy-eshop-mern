@@ -1,7 +1,9 @@
 import React from 'react';
 import '../../styles/ProductDetails.scss';
+import ProductCarousel from '../Carousel/ProductCarousel';
 import StarRating from './StarRating';
 
+/* eslint-disable */
 const ProductDetails = () => {
   return (
     <div className="pDetailsWrapper">
@@ -18,7 +20,7 @@ const ProductDetails = () => {
             <h4>Brand: <span>SAMSUNG</span></h4>
           </div>
           <div className="pDetailsPoints">
-            <StarRating />
+            <StarRating rating={4.7}/>
             <div><a href="#"><strong>4.7</strong> (32499 Reviews)</a></div>
             <div><a href="#">Write a review &gt;</a></div>
           </div>
@@ -26,7 +28,7 @@ const ProductDetails = () => {
       </div>
       <div className="pDetailsMain">
         <div className="pDetailsPicture">
-
+          <ProductCarousel />
         </div>
         <div className="pDetailsHighlights"></div>
       </div>
