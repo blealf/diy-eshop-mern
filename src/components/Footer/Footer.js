@@ -100,11 +100,11 @@ const Footer = () => {
         </div>
       </div>
       <div className="lastFooter">
-          <a href="#">Terms and Conditions</a> |
-          <a href="#">Privacy Policy</a> |
-          <a href="#">Copyright @ 2020</a> |
-          <a href="#">Accessibility Policy</a> |
-          <a href="#">Product Recalls</a> |
+          <a href="#">Terms and Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Copyright @ 2020</a>
+          <a href="#">Accessibility Policy</a>
+          <a href="#">Product Recalls</a>
           <a href="#">Credits</a>
         </div>
     </div>

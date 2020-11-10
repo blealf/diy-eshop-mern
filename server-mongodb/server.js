@@ -1,22 +1,18 @@
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
-
 const io = require('socket.io')(http);
-
 const chalk = require('chalk');
 const log = console.log;
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const expressSession = require('express-session');
 const passport = require('./app/passport/setup');
 
+// Database Mongoose
 const mongoose = require('mongoose');
 const db = require('./app/models');
 const MongoStore = require('connect-mongo')(expressSession);
-
 db.mongoose.connect(db.url,
   {
     useNewUrlParser: true,
@@ -34,7 +30,13 @@ db.mongoose.connect(db.url,
 const corsOptions = {
   origin: 'http://localhost:3000',
 };
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
+// Middlewares
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -50,26 +52,20 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Routes
 require('./app/routes/auth')(app);
 require('./app/routes/user.routes')(app);
-
-require('./app/routes/category.routes')(app);
-require('./app/routes/subcategory.routes')(app);
 
 require('./app/routes/product.routes')(app);
 require('./app/routes/order.routes')(app);
 require('./app/routes/wishlists.routes')(app);
-require('./app/routes/review.routes')(app);
 
 
+// App
 const PORT = process.env.PORT || 3001;
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to DIY eshop' });
 });
-
-// app.listen(PORT, () => {
-//   log(chalk.yellowBright(`Server is running on port ${PORT}`))
-// })
 
 // Socket.io
 io.on('connection', (socket) => {
@@ -81,4 +77,8 @@ io.on('connection', (socket) => {
 
 http.listen(PORT, () => {
   log(chalk.yellowBright(`Listening on port ${PORT}`));
+  // log(performance.now())
 });
+// app.listen(PORT, () => {
+//   log(chalk.yellowBright(`Server is running on port ${PORT}`))
+// })

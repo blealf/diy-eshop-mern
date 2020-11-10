@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../styles/Products.scss'
+import {Link} from 'react-router-dom';
 
 const Item = ({
-  title,
-  review
+  product
 }) => {
   return (
     <div className="itemWrapper">
@@ -11,10 +11,14 @@ const Item = ({
         <div className="itemBreadCrumbs"></div>
         <div className="itemMetaData">
           <div className="itemTitle">
-            {title}
+            <Link to={'/products/' + product.id }>
+            {/* {product.title} */}
+            {product.title.charAt(0).toUpperCase() + product.title.slice(1,)}
+            </Link>
           </div>
           <div className="itemPoints">
             {/* {review.rating} */}
+            {/* {console.log(product)} */}
           </div>
         </div>
       </div>

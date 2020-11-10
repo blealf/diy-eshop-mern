@@ -16,22 +16,37 @@ module.exports = mongoose => {
         type: Number,
         required: true
       },
+      discount: {
+        type: Number,
+      },
       available: {
         type: Boolean,
         default: true
       },
-      subcategory: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'SubCategory'
+      model: {
+        type: String,
+        required: true
       },
+      ratings: [{
+        score: Number,
+        user: String
+      }],
       reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Review",
+        title: String,
+        body: String,
+        user: String
       }],
       brand: { type: String },
       tags: [{ type: String }],
       highlights: [{ type: String }],
-      published: { type: Boolean }
+      published: { type: Boolean },
+      saleExpiry: {
+        type: Date
+      },
+      images: [{
+        data: Buffer,
+        contentType: String
+      }]
   },
   { timestamps: true }
   )

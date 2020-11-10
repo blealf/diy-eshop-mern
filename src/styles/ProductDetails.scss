@@ -86,7 +86,19 @@
       margin-top: 50px;
       display: flex;
       flex-direction: column;
-      
+      .itemQuantity {
+        font-weight: bolder;;
+        select {
+          width: 50px;
+          margin-left: 10px;
+          padding: 4px;
+          border: none;
+          background: var(--main-light);
+          color: white;
+          font-weight: bolder;
+          border-radius: 2px;
+        }
+      }
       a{
         margin-top:10px;
         color: var(--alt-color);
@@ -94,6 +106,7 @@
         font-size: 1.2rem;
         font-weight: bolder;
         div {
+          border-radius: 2px;
           width: 100%;
           background: var(--button);
           text-align: center;

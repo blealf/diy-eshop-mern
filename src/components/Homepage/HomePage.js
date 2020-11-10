@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/Homepage.scss'
 import {FiTruck} from 'react-icons/fi';
 import {BiDollarCircle} from 'react-icons/bi';
 import {FaBoxOpen} from 'react-icons/fa';
 import Carousel from '../Carousel/Carousel';
 import StarRating from '../Product/StarRating';
+import {DataContext} from '../../utility/ProductProvider';
+import {Link} from 'react-router-dom';
+import Loading from '../../utility/Loading';
 
 const HomePage = () => {
+
+  const productContext = useContext(DataContext);
+  const [products, setProducts] = useState([])
+
+
+useEffect(() => {
+    setProducts(productContext.products)
+
+    return(() => {
+      setProducts([]);
+    })
+  }, [productContext])
+
   return (
     <div className="homepage">
       <Carousel />
@@ -38,6 +54,7 @@ const HomePage = () => {
             <p>Lorem ipsum dolor sit.</p>
           </div>
         </div>
+        {/* {console.log(products)} */}
       </div>
 
       <div className="homepageDeals">
@@ -45,96 +62,35 @@ const HomePage = () => {
           <h2>Lorem ipsum dolor sit amet consectetur.</h2>
         </div>
         <div className="dealWrapper">
-          <a href="">
-            <div className="dealItem">
-              <div className="dealImage">
-                <img src="/images/pic1.jpg" alt=""/>
-              </div>
-              <div className="dealInfo">
-                <div className="dealTitle">
-                  Lorem ipsum dolor sit amet
-                </div>
-                <div className="dealReview">
-                  <StarRating rating={4.2} /> <span>(3562 Reviews)</span>
-                </div>
-                <div className="dealPrice">
-                  <h2>$499.99 <span>SAVE $50</span></h2>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="">
-            <div className="dealItem">
-              <div className="dealImage">
-                <img src="/images/pic1.jpg" alt=""/>
-              </div>
-              <div className="dealInfo">
-                <div className="dealTitle">
-                  Lorem ipsum dolor sit amet
-                </div>
-                <div className="dealReview">
-                  <StarRating rating={4.2} /> <span>(3562 Reviews)</span>
-                </div>
-                <div className="dealPrice">
-                  <h2>$499.99 <span>SAVE $50</span></h2>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="">
-            <div className="dealItem">
-              <div className="dealImage">
-                <img src="/images/pic3.jpg" alt=""/>
-              </div>
-              <div className="dealInfo">
-                <div className="dealTitle">
-                  Lorem ipsum dolor sit amet
-                </div>
-                <div className="dealReview">
-                  <StarRating rating={4.2} /> <span>(3562 Reviews)</span>
-                </div>
-                <div className="dealPrice">
-                  <h2>$499.99 <span>SAVE $50</span></h2>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="">
-            <div className="dealItem">
-              <div className="dealImage">
-                <img src="/images/pic2.jpg" alt=""/>
-              </div>
-              <div className="dealInfo">
-                <div className="dealTitle">
-                  Lorem ipsum dolor sit amet
-                </div>
-                <div className="dealReview">
-                  <StarRating rating={4.2} /> <span>(3562 Reviews)</span>
-                </div>
-                <div className="dealPrice">
-                  <h2>$499.99 <span>SAVE $50</span></h2>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="">
-            <div className="dealItem">
-              <div className="dealImage">
-                <img src="/images/pic1.jpg" alt=""/>
-              </div>
-              <div className="dealInfo">
-                <div className="dealTitle">
-                  Lorem ipsum dolor sit amet
-                </div>
-                <div className="dealReview">
-                  <StarRating rating={4.2} /> <span>(3562 Reviews)</span>
-                </div>
-                <div className="dealPrice">
-                  <h2>$499.99 <span>SAVE $50</span></h2>
-                </div>
-              </div>
-            </div>
-          </a>
+          {
+            (products && products.length > 0) ? (
+              (products.map(product => (
+                <Link to={`/products/` + product.id} key={product.id}>
+                  <div className="dealItem">
+                    {/* {navigate('/other-page', { state: { id: product.id } })} */}
+                    <div className="dealImage">
+                      <img src="/images/pic1.jpg" alt=""/>
+                    </div>
+                    <div className="dealInfo">
+                      <div className="dealTitle">
+                        {product.title}
+                      </div>
+                      <div className="dealReview">
+                        <StarRating rating={4.2} /> <span>(3562 Reviews)</span>
+                      </div>
+                      <div className="dealPrice">
+                        {
+                        (product.discount) ? 
+                        (<h2>${(product.price - (product.discount / 100) * product.price).toFixed(2)} <span>SAVE ${Math.round((product.discount / 100) * product.price)}</span></h2>) :
+                        (<h2>${(product.disount / 100) * product.price}.99 </h2>)
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              )))
+            ) : <Loading type="cylon" color="teal" data="Products"/>
+          }
         </div>
       </div>
 

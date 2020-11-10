@@ -1,6 +1,9 @@
 const db = require("../models");
-const Product = db.products
-const Review = db.reviews
+const Product = db.products;
+
+// Image upload
+const fs = require('fs');
+const path = require('path');
 
 exports.create = (req, res) => {
   if(!req.body.title) {
@@ -14,10 +17,20 @@ exports.create = (req, res) => {
     price: req.body.price,
     brand: req.body.brand,
     available: req.body.available,
-    subcategory: req.body.subcategory,
+    category: req.body.category,
+    highlights: req.body.highlights,
     tags: req.body.tags,
     reviews: req.body.reviews,
-    published: req.body.published ? req.body.published : false
+    ratings: req.body.ratings,
+    published: req.body.published ? req.body.published : false,
+    model: req.body.model,
+    discount: req.body.discount,
+    saleExpiry: req.body.saleExpiry,
+
+    images: (req.files) ? [{
+      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.files.filename)),
+      contentType: 'image/png'
+    }] : null
   })
 
   product
@@ -29,42 +42,6 @@ exports.create = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occured while creating the product"
-      })
-    })
-}
-
-exports.createReview = (req, res) => {
-  if(!req.body){
-    res.status(400).send({ message: "Content cannot be empty"});
-    return;
-  }
-
-  const review = new Review({
-    rating: req.body.rating,
-    title: req.body.title,
-    description: req.body.description,
-    product: req.body.product
-  })
-
-  const productId = req.params.id
-
-  review
-    .save()
-    .then(data => {
-      res.status(200).send(data)
-      Product.findById(productId)
-        .then(productData => {
-          productData.reviews.push(data.id)
-          productData.save()
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occured while creating the review"
       })
     })
 }

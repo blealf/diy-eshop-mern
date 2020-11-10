@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/Products.scss';
-import {DataContext} from '../../utility/DataProvider';
+import {DataContext} from '../../utility/ProductProvider';
 import ProductCarousel from '../Carousel/ProductCarousel';
 import Item from './Item';
+
 
 const Products = () => {
   // const url = 'http://localhost:3001/api/products';
@@ -20,8 +21,8 @@ const Products = () => {
       {(products.length > 0) ? products.map(item => (
         <Item 
           key={item.id}
-          title={item.title.charAt(0).toUpperCase() + item.title.slice(1,)} 
-          review={item.review}/>
+          product={item} 
+          />
       )) : null
     }
       

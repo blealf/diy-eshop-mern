@@ -1,25 +1,28 @@
 import React, { useState, useEffect, createContext } from 'react';
 import useAxios from './useAxios';
-// import useFetch from './useFetch';
+import Loading from './Loading';
 
 const DataContext = createContext();
 
-const DataProvider = ({ children }) => {
-  // const UsersUrl = "http://localhost:3001";
+const ProductProvider = ({ children }) => {
   const url = "http://localhost:3001/api/products/";
-
-  const { data, loading, error } = useAxios(url);
+  const { data, loading, error } = useAxios(url, "get");
   const [products, setProducts ] = useState([]);
 
-
   useEffect(() => {
-    console.log(loading);
-    if(data && data.length !== 0) {
-      setProducts(data)
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if(data && data.length !== 0 ) {
+        setProducts(data)
+      }
     }
+    
+    return(() => {
+      isSubscribed = false;
+    })
   }, [data])
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loading type="cylon" color="teal"/>
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
   return (
     <DataContext.Provider
@@ -32,4 +35,4 @@ const DataProvider = ({ children }) => {
   )
 }
 
-export {DataProvider, DataContext}
+export {ProductProvider, DataContext}

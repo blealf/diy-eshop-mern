@@ -109,7 +109,7 @@ header {
     bottom: 0;
     transition: left 350ms 100ms;
     display: flex;
-    z-index: 1;
+    z-index: 4;
     div {
       background: gray;
       width: 100%;
@@ -137,14 +137,17 @@ header {
           h3 {
             position: relative;
             margin: 0;
+
             line-height: 0.5rem;
           }
           h3:first-child {
             font-size: 1.4rem;
             display: none;
+            top: -10px;
+            left: -2px;
+            // border: 1px solid red;
           }
           h3:last-child{
-            position: relative;
             font-size: 2rem;
             margin-top: -3px;
           }
@@ -160,6 +163,7 @@ header {
   }
 
   .navToggleLabel {
+    position: relative;
     grid-area: navtoggle;
     padding: 10px 3px 3px 10px;
     cursor: pointer;
@@ -201,9 +205,12 @@ header {
     }
   }
   .navToggle:checked ~ .navToggleLabel {
-    z-index: 9;
-    margin-top: -40px;
-    margin-left: 65vw;
+    z-index: 19;
+    // margin-top: -40px;
+    // margin-left: 65vw;
+    position: fixed;
+    top: 0;
+    left: 65vw;
     span {
       width:0;
     }
