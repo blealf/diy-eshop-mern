@@ -1,1 +1,1 @@
-web: node server-mongodb/server.js
+web: react-scripts start
