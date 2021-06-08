@@ -22,7 +22,7 @@ const ProductProvider = ({ children }) => {
     })
   }, [data])
 
-  if (loading) return <Loading type="cylon" color="teal"/>
+  // if (loading) return <Loading type="cylon" color="teal"/>
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
   return (
     <DataContext.Provider
