@@ -104,13 +104,13 @@ const ProductCarousel = () => {
     <div className="productCarousel">
       <div className="imageHolder" ref={slideHolder}>
         <div className="pSlides currentItem">
-          <img src="./images/pic1.jpg" alt=""/>
+          <img src="/images/pic1.jpg" alt=""/>
         </div>
         <div className="pSlides">
-          <img src="./images/pic2.jpg" alt=""/>
+          <img src="/images/pic2.jpg" alt=""/>
         </div>
         <div className="pSlides">
-          <img src="./images/pic3.jpg" alt=""/>
+          <img src="/images/pic3.jpg" alt=""/>
         </div>
         <div className="pSlides">
           <img src="" alt=""/>
