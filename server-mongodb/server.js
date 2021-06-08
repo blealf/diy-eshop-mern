@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
@@ -21,6 +22,7 @@ db.mongoose.connect(db.url,
   })
   .then(() => {
     log(chalk.blue('connected to db'));
+    
   })
   .catch((error) => {
     log(chalk.redBright('Cannot connect to database', error));
@@ -63,15 +65,15 @@ require('./app/routes/wishlists.routes')(app);
 
 // App
 const PORT = process.env.PORT || 3001;
-// app.get('/', (req, res) => {
-//   res.json({ message: 'Welcome to DIY eshop' });
-// });
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join('../public')))
-  app.get('*', (req,res) => {
-    res.sendFile(path.join('../public', 'index.html'))
-  })
-}
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to DIY eshop' });
+});
+
+// app.use(express.static(path.join(__dirname, '/public')))
+// app.get('*', (req,res) => {
+//   res.sendFile(path.join(__dirname, '/public', 'index.html'))
+// })
+
 
 // Socket.io
 io.on('connection', (socket) => {
@@ -80,7 +82,7 @@ io.on('connection', (socket) => {
     log(chalk.bg-red('user disconnected'));
   });
 });
-
+require('__dirname');
 http.listen(PORT, () => {
   log(chalk.yellowBright(`Listening on port ${PORT}`));
   // log(performance.now())
