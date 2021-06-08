@@ -12,27 +12,27 @@ const Cart = () => {
   localStorage.setItem("orders", [])
 
   useEffect(() => {
-    setOrder(orderContext.orders);
-    setProducts(productContext.products.filter(product => 
+    setOrder(orderContext ? orderContext.orders : []);
+    setProducts(productContext ? productContext.products.filter(product => 
       product.id === (order.map(item => {
         if(product.id === item.product){
           return item.product
         }
       }
       ))
-    ));
+    ): []);
     // setProducts(productContext.products.filter(product => 
     //   product.id === '5f872363c3a7982491aab6fb'
     // ));
     
-  }, [orderContext, productContext])
+  }, (orderContext && productContext ? [orderContext, productContext] : []))
 
-  order.map(item => {
-    if('5f74aaf5ca2d09428da3189e' === item.product ||
-      '5f872363c3a7982491aab6fb' === item.product){
-      console.log(item.product)
-    }
-  })
+  // order.map(item => {
+  //   if('5f74aaf5ca2d09428da3189e' === item.product ||
+  //     '5f872363c3a7982491aab6fb' === item.product){
+  //     console.log(item.product)
+  //   }
+  // })
 
   // products.map(product => {
   //   console.log(product.id)
@@ -45,14 +45,14 @@ const Cart = () => {
         <div className="cartItems">
           <span className="selectItem">Select Item</span>
           <span className="itemPriceHeader">Price</span>
-          { order.map(item => (
+          { order.length > 0 ? order.map(item => (
               <span className="itemRow" key={item.id}>
                 <input type="checkbox" name="selectItem" id="selectItem"/>
                 <span className="itemWrapper">Something Here</span>
                 <span className="itemPrice">CDN$ 20.00</span>
                 {/* {console.log(item.product)} */}
               </span>
-            ))
+            )) : <h1>Nothing here!!</h1>
           }
           
           <span className="subtotal">Subtotal</span>

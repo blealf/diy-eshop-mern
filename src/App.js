@@ -18,8 +18,8 @@ function App() {
   
   return (
     <div className="App">
-      <ProductProvider>
-        <OrderProvider>
+      {/* <ProductProvider>
+        <OrderProvider> */}
           <Header />
           <Switch>
             <Route exact path='/' component={Homepage}/>
@@ -30,8 +30,8 @@ function App() {
             <Route component={Error} />
           </Switch>
           <Footer />
-        </OrderProvider>
-      </ProductProvider>
+        {/* </OrderProvider>
+      </ProductProvider> */}
     </div>
   );
 }

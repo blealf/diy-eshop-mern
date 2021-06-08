@@ -15,14 +15,14 @@ const Header = () => {
   
   useEffect(() => {
     const abortController = new AbortController();
-    const signal = abortController.signal
+    const signal = abortController.signal;
 
-    setCart(orderContext.orders);
+    setCart(orderContext ? orderContext.orders: []);
 
     return function cleanup() {
       abortController.abort()
     }
-  }, [orderContext.orders])
+  }, (orderContext ? [orderContext.orders] : []))
 
   const closeMenu = () => {
     menuToggle.current.checked = false;

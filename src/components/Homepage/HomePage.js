@@ -12,16 +12,15 @@ import Loading from '../../utility/Loading';
 const HomePage = () => {
 
   const productContext = useContext(DataContext);
-  const [products, setProducts] = useState([])
-
+  const [products, setProducts] = useState([]);
 
 useEffect(() => {
-    setProducts(productContext.products)
+    setProducts(productContext ? productContext.products: [])
 
     return(() => {
       setProducts([]);
     })
-  }, [productContext])
+  }, (productContext ? [productContext]: []))
 
   return (
     <div className="homepage">
