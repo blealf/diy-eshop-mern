@@ -63,9 +63,15 @@ require('./app/routes/wishlists.routes')(app);
 
 // App
 const PORT = process.env.PORT || 3001;
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to DIY eshop' });
-});
+// app.get('/', (req, res) => {
+//   res.json({ message: 'Welcome to DIY eshop' });
+// });
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join('../public')))
+  app.get('*', (req,res) => {
+    res.sendFile(path.join('../public', 'index.html'))
+  })
+}
 
 // Socket.io
 io.on('connection', (socket) => {
